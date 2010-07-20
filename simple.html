@@ -15,20 +15,20 @@
 
 <script type="text/javascript" charset="utf-8">
   	window.onload = function(){
-		test("quando não usa BigNumber perde precisao e falha", function(){
-			ok(0.1 + 0.2 != 0.3, "O resultado real é " + (0.1 + 0.2));
-		});
+			test("quando não usa BigNumber perde precisao e falha", function(){
+				ok(0.1 + 0.2 != 0.3, "O resultado real é " + (0.1 + 0.2));
+			});
 		
-		test("quando usa BigNumber isso não acontece", function(){
-			var valor = new BigNumber(0.1).add(new BigNumber(0.2));
-			equals(0.3, Number(valor), "Deve manter a precisão corretamente");
-		});
+			test("quando usa BigNumber isso não acontece", function(){
+				var valor = new BigNumber(0.1).add(new BigNumber(0.2));
+				equals(0.3, Number(valor), "Deve manter a precisão corretamente");
+			});
 		
-		test("resolvendo sem o bignumber", function(){
-			var valor = (0.1*10 + 0.2*10)/10
-			equals(0.3, Number(valor), "Deve manter a precisão corretamente");
-		});
-	}
+			test("resolvendo sem o bignumber", function(){
+				var valor = (0.1*10 + 0.2*10)/10
+				equals(0.3, Number(valor), "Deve manter a precisão corretamente");
+			});
+		}
 </script>
 </script>
 </body>
