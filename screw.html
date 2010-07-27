@@ -11,50 +11,11 @@
     <script src="http://github.com/drogus/smoke/raw/master/lib/smoke.mock.js"></script>
     <script src="http://github.com/drogus/smoke/raw/master/lib/smoke.stub.js"></script>
     <script src="http://github.com/drogus/smoke/raw/master/lib/smoke.ajax.js"></script>
-    <link rel="stylesheet" href="http://github.com/nkallen/screw-unit/raw/master/lib/screw.css">
+    <link rel="stylesheet" href="http://github.com/rsutphin/screw-unit/raw/master/lib/screw.css">
     
     <script type="text/javascript">
       Screw.Unit(function() {
         describe("Faz um requisicao Ajax e retorna um html como sucesso", function() {
-          var resultado, httpStatus = "";
-
-          it("mockando uma requisicao ajax com sucesso", function() {
-            /*
-               Dizemos qual é o nosso recurso no server side, depois passamos o que o recurso nos retorna
-               (no nosso caso um html) e o http status code
-             */
-            Smoke.Ajax.mock("/meuRecurso", "<p>Parabens!</p>", 200);
-            var resultado, httpStatus;
-            $.ajax({
-              url:"/meuRecurso",
-              success: function(data, textStatus){
-                resultado = data;
-                httpStatus = textStatus;
-                }
-            });
-
-            wait(function(){
-              expect(resultado).to(equal, "<p>Parabens!</p>");
-              expect(httpStatus).to(equal, "success");
-            }, 50);
-          });
-
-          it("mockando uma requisicao ajax com erro", function(){
-            var resultado, httpStatus;
-            Smoke.Ajax.mock("/produto","<p>Oops</p>", 500);
-            $.ajax({
-              url:"/produto",
-              error: function(error){
-                resultado = error.responseText;
-                httpStatus = error.status;
-              }
-            });
-
-            wait(function(){
-              expect(resultado).to(equal, "<p>Oops</p>");
-              expect(httpStatus).to(equal, 500);
-            }, 50);
-          });
 
           it("mockando e preenchendo div com conteudo do ajax", function(){
               var html = "<span>Camiseta Vermelha</span>"
@@ -63,9 +24,7 @@
 
               $.ajax({
                 url:"/produto/camiseta",
-                success: function(data){
-                  $("#contentAjax").html(data);
-                }
+                success: callback
               });
 
               wait(function(){
@@ -73,9 +32,7 @@
               },50);
           })
 
-          //outro jeito de testar ajax, nao testando o ajax em si e sim o callback
           it("testando callback de um ajax", function(){
-            //Zerando a div
             $("#contentAjax").html(""); 
             var html = "<span>Camiseta Amarela</span>";
             callback(html);
